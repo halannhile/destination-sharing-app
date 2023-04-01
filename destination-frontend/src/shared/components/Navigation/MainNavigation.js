@@ -1,6 +1,7 @@
 import React from 'react';
 
 import MainHeader from './MainHeader';
+import NavLinks from './NavLinks';
 
 // to make things clickable
 import { Link } from 'react-router-dom';
@@ -20,7 +21,7 @@ function MainNavigation(props) {
             <Link to="/">YourDestinations</Link>
         </h1>
         <nav>
-            ...
+            <NavLinks/>
         </nav>
     </MainHeader>
   )

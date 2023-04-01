@@ -12,12 +12,12 @@
     text-decoration: none;
     padding: 1rem;
     color: white;
-    background: #292929;
+    background: #CBCAF7;
   }
   
   .user-item a:hover,
   .user-item a:active {
-    background: #ffd900;
+    background: #e6e6fa;
   }
   
   .user-item__content {
@@ -31,19 +31,23 @@
   }
   
   .user-item__info h2 {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     margin: 0 0 0.5rem 0;
-    font-weight: normal;
-    color: #ffd900;
+    font-weight: bold;
+    color: #9370db;
   }
   
   .user-item:hover h2,
-  .user-item:active h2,
+  .user-item:active h2 {
+    color: #9370db;
+  }
   .user-item:hover h3,
   .user-item:active h3 {
-    color: #292929;
+    color: #9370db;
   }
   
   .user-item__info h3 {
+    font-weight: bold;
     margin: 0;
+    color: #9370db;
   }
