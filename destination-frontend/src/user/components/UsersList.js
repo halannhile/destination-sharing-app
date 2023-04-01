@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './UsersLists.css'
+import './UsersList.css'
 import UserItem from './UserItem';
 
 function UsersList(props) {
@@ -15,7 +15,7 @@ function UsersList(props) {
     return (
     
     // unordered list: 
-    <ul>
+    <ul className="users-list">
         {props.items.map(user => {
             <UserItem 
 
