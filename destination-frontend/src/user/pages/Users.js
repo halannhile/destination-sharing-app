@@ -4,6 +4,7 @@ import UsersList from '../components/UsersList'
 
 function Users() {
 
+  // input for UsersList needs to be array
   const USERS = [
     {
       id: 'u1', 

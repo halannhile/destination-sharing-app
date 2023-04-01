@@ -1,6 +1,7 @@
 import './App.css';
 
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+
 import Users from './user/pages/Users';
 import NewPlace from './places/pages/NewPlace';
 
@@ -9,7 +10,7 @@ function App() {
     <Router>
 
       <Switch>
-      <Route path="/users" exact>
+      <Route path="/" exact>
         <Users/>
       </Route>
 
