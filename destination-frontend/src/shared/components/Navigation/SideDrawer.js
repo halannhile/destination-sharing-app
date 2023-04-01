@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '/SideDrawer.css'
+import './SideDrawer.css'
 
 function SideDrawer(props) {
   return (
