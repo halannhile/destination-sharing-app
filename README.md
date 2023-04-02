@@ -18,7 +18,7 @@ Progress so far:
 
 * Home screen: 
 
-![image](https://user-images.githubusercontent.com/55796146/229346590-7db8090b-59a9-4022-abd5-dbf33989336f.png)
+![image](https://user-images.githubusercontent.com/55796146/229350046-e9f79312-04f8-4805-b0cb-dd994712707d.png)
 
 * User's places: 
 
