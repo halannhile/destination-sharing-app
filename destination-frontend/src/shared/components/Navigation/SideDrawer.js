@@ -8,17 +8,18 @@ function SideDrawer(props) {
   
   const content = 
     // note: 200 milliseconds animation, classNames with s
-    <CSSTransition 
+    (<CSSTransition 
       in={props.show} 
       timeout={200} 
       classNames="slide-in-left"
+      // note: mount and unmount
       mountOnEnter
-      mountOnExit
+      unmountOnExit
       >
     <aside className="side-drawer" onClick={props.onClick}>
        {props.children} 
     </aside>
-    </CSSTransition>
+    </CSSTransition>)
 
   return (
     // tell React which content to render where
