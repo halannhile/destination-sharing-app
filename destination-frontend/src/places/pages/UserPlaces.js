@@ -22,10 +22,10 @@ const DUMMY_PLACES = [
     },
     {
         id: 'p1',
-        title: 'Sydney House',
+        title: 'Sydney Opera House',
         description: 'An icon of Sydney, Australia. The Sydney Opera House is one of the most distinctive architecture of the 20th century.',
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Sydney_Australia._%2821339175489%29.jpg',
-        address: 'Bennelong Point, Sydney NSW 2000',
+        address: 'Bennelong Point, Sydney NSW 2000, Australia',
         location: {
             lat: -33.85662900846622, 
             lng: 151.21531387971248
