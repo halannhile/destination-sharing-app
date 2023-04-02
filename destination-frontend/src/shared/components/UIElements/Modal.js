@@ -1,5 +1,5 @@
 import React from 'react'
-import { ReactDOM } from 'react-dom'
+import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group'
 
 import Backdrop from './Backdrop'
