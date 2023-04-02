@@ -22,10 +22,10 @@ Progress so far:
 
 * User's places: 
 
-![image](https://user-images.githubusercontent.com/55796146/229349965-032d1bae-0b62-430e-be74-3716a8075b75.png)
-
+![image](https://user-images.githubusercontent.com/55796146/229350109-fda37c4f-045f-4f20-a36f-2c5c3ac7d7d9.png)
 
 * Google Maps view of destination: 
 
-![image](https://user-images.githubusercontent.com/55796146/229349988-14c16ff8-e29c-48a6-85b5-af14e20d5610.png)
+![image](https://user-images.githubusercontent.com/55796146/229350124-6b8e42b3-dccd-483a-8936-bd669adc5a06.png)
+
 
