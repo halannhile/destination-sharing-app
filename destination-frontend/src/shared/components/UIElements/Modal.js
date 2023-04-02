@@ -19,7 +19,7 @@ function ModalOverlay(props) {
             {/* preventDefault will make sure if we add a button, clicking on it won't submit the form by default*/}
             {/* we want to submit form by using our own submit function */}
             <form onSubmit={
-                props.onSubmit ? props.onSubmit : (event) => event.preventDefault
+                props.onSubmit ? props.onSubmit : (event) => event.preventDefault()
             }>
 
                 <div className={`modal__content ${props.contentClass}`}>
