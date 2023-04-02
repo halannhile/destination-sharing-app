@@ -20,7 +20,7 @@ function App() {
           <Users/>
         </Route>
 
-        {/* this route as a dynamic path */}
+        {/* this route as a dynamic path, the :userId is called a dynamic segment */}
         <Route path="/:userId/places" exact>
           <UserPlaces/>
         </Route>
