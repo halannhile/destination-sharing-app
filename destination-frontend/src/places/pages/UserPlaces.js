@@ -7,7 +7,7 @@ import PlaceList from '../components/PlaceList'
 // array of places
 const DUMMY_PLACES = [
     {
-        id: 'p1',
+        id: 'p2',
         title: 'Empire State Building',
         description: 'One of the most famous sky scrappers in the world',
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg',
@@ -18,19 +18,19 @@ const DUMMY_PLACES = [
             lat: 40.7484405,
             lng: -73.9878584
           },
-          creator: 'u1'
+          creator: 'u2'
     },
     {
-        id: 'p2',
-        title: 'Sydney Opera House',
+        id: 'p1',
+        title: 'Sydney House',
         description: 'An icon of Sydney, Australia. The Sydney Opera House is one of the most distinctive architecture of the 20th century.',
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Sydney_Australia._%2821339175489%29.jpg',
         address: 'Bennelong Point, Sydney NSW 2000',
         location: {
             lat: -33.85662900846622, 
-            long: 151.21531387971248
+            lng: 151.21531387971248
         },
-        creator: 'u2'
+        creator: 'u1'
       }
 ]
 
