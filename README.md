@@ -2,14 +2,14 @@
 
 ## Description: 
 
-An app that allows users to share their favorite destinations and view other users' shared places.
+This is an app that allows users to share their favorite destinations and view other users' shared places.
 
 ## Functionalities: 
 
 Full-stack MERN app with: 
 
 * Authentication 
-* CRUD
+* CRUD functionalities
 * Google Maps API 
 
 ## A work in progress...
