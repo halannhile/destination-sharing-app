@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 
 import { validate } from '../../util/validators';
 import './Input.css';
@@ -25,7 +25,7 @@ const inputReducer = (state, action) => {
             return {
             ...state,
             isTouched: true};
-            
+
         default: 
             return state;
     }
@@ -40,6 +40,14 @@ function Input(props) {
         isTouched: false,
         isValid: false})
 
+    const { id, onInput }= props;
+    const { value, isValid } = inputState;
+
+    useEffect(() => {
+        // pass these back to NewPlace
+        props.onInput(id, value, isValid)
+    }, [id, value, isValid, onInput])
+
     const changeHandler = event => {
 
         // UPDATING THE STATE:
@@ -51,7 +59,7 @@ function Input(props) {
         });
     };
 
-    const toucheHandler = () => {
+    const touchHandler = () => {
         dispatch({
             type: 'TOUCH'
         })
@@ -69,7 +77,7 @@ function Input(props) {
                 onChange={changeHandler}
 
                 // onBlur handle: when user loses focus on element
-                onBlur={toucheHandler}
+                onBlur={touchHandler}
                
                 // 2-way binding
                 value={inputState.value}/> 
@@ -79,7 +87,7 @@ function Input(props) {
                 id={props.id} 
                 rows={props.rows || 3}
                 onChange={changeHandler}
-                onBlur={toucheHandler}
+                onBlur={touchHandler}
                 value={inputState.value} />
         );
     
