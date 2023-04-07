@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 
+import { validate } from '../../util/validators';
 import './Input.css';
 
 // set up the useReducer() function outside component's function
@@ -14,10 +15,17 @@ const inputReducer = (state, action) => {
             // using spread operator here to copy all key-pair values of the old state
             // but it can also overwrite selected keys/values
             return {
+
+                // in ...state, there will be isTouched state
                 ...state,
                 value: action.val,
-                isValid: true,
+                isValid: validate(action.val, action.validators),
             };
+        case 'TOUCH': 
+            return {
+            ...state,
+            isTouched: true};
+            
         default: 
             return state;
     }
@@ -29,14 +37,25 @@ function Input(props) {
     // output: initial state, and the dispatch function to change this state
     const [inputState, dispatch] = useReducer(inputReducer, {
         value: '', 
+        isTouched: false,
         isValid: false})
 
     const changeHandler = event => {
 
         // UPDATING THE STATE:
         // event: what we automatically get from onChange
-        dispatch({type:'CHANGE', val: event.target.value});
+        dispatch({
+            type:'CHANGE', 
+            val: event.target.value,
+            validators: props.validators,
+        });
     };
+
+    const toucheHandler = () => {
+        dispatch({
+            type: 'TOUCH'
+        })
+    }
 
 
     // if element is input, return <input/>, else return <textarea/>
@@ -48,6 +67,9 @@ function Input(props) {
 
                 // changeHandler will be called on every keystroke
                 onChange={changeHandler}
+
+                // onBlur handle: when user loses focus on element
+                onBlur={toucheHandler}
                
                 // 2-way binding
                 value={inputState.value}/> 
@@ -57,6 +79,7 @@ function Input(props) {
                 id={props.id} 
                 rows={props.rows || 3}
                 onChange={changeHandler}
+                onBlur={toucheHandler}
                 value={inputState.value} />
         );
     
@@ -64,14 +87,17 @@ function Input(props) {
         
     return (
         // conditional className: adding 'form-control--invalid' to input className if isValid is false
+        // throw error when the input is invalid AND isTouched = true (i.e. use's been able to input something)
+        
         <div className={`form-control 
-            ${!inputState.isValid && 'form-control--invalid'}`}>
+            ${!inputState.isValid && inputState.isTouched && 
+            'form-control--invalid'}`}>
 
             <label htmlFor={props.id}>{props.label}</label>
             {element}
 
             {/* if isValid is false, then return error text */}
-            {!inputState.isValid && 
+            {!inputState.isValid && inputState.isTouched &&
                 <p>{props.errorText}</p>}
 
         </div>
