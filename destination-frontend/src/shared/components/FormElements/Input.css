@@ -11,25 +11,33 @@
   .form-control label {
     font-weight: bold;
     margin-bottom: 0.5rem;
+    color: #9370db;
+    font-size: x-large;
   }
   
-  .form-control input,
+  .form-control input, 
+  
   .form-control textarea {
     width: 100%;
     font: inherit;
     border: 1px solid #ccc;
     background: #f8f8f8;
-    padding: 0.15rem 0.25rem;
+    padding: 0.35rem 0.25rem;
   }
   
   .form-control input:focus,
   .form-control textarea:focus {
     outline: none;
-    background: #ebebeb;
-    border-color: #510077;
+    background: #f8f8f8;
+    border-color: #9370db;
+    font-size: large;
   }
   
-  .form-control--invalid label,
+  .form-control--invalid label{
+    color: #9370db;
+    font-size: x-large;
+  }
+
   .form-control--invalid p {
     color: red;
   }
@@ -37,5 +45,5 @@
   .form-control--invalid input,
   .form-control--invalid textarea {
     border-color: red;
-    background: #ffd1d1;
+    background: #f8f8f8;
   }

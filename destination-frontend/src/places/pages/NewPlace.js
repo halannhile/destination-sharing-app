@@ -8,9 +8,15 @@ function NewPlace() {
     <form className="place-form">
 
       {/* if don't specify element="input", Input.js will render <textarea/> instead of <input/> */}
-      <Input element="input" type="text" label="Title" />
+      <Input 
+        element="input" 
+        type="text" 
+        label="Title"
+        validators={[]}
+        errorText="Please enter a valid input" />
     </form>
   )
 }
 
 export default NewPlace
+

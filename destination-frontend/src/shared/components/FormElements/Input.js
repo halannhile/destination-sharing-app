@@ -16,7 +16,7 @@ const inputReducer = (state, action) => {
             return {
                 ...state,
                 value: action.val,
-                isValid: true
+                isValid: true,
             };
         default: 
             return state;
@@ -27,7 +27,9 @@ function Input(props) {
 
     // initialization: value to '' and isValid to false
     // output: initial state, and the dispatch function to change this state
-    const [inputState, dispatch] = useReducer(inputReducer, {value: '', isValid: false})
+    const [inputState, dispatch] = useReducer(inputReducer, {
+        value: '', 
+        isValid: false})
 
     const changeHandler = event => {
 
@@ -61,9 +63,17 @@ function Input(props) {
     
         
     return (
-        <div className={`form-control`}>
+        // conditional className: adding 'form-control--invalid' to input className if isValid is false
+        <div className={`form-control 
+            ${!inputState.isValid && 'form-control--invalid'}`}>
+
             <label htmlFor={props.id}>{props.label}</label>
             {element}
+
+            {/* if isValid is false, then return error text */}
+            {!inputState.isValid && 
+                <p>{props.errorText}</p>}
+
         </div>
     )
 }
