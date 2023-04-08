@@ -1,8 +1,9 @@
-import React, { useCallback, useReducer } from 'react'
+import React, { useCallback, useReducer } from 'react';
 
-import Input from '../../shared/components/FormElements/Input'
-import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../shared/util/validators'
-import './NewPlace.css'
+import Input from '../../shared/components/FormElements/Input';
+import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../shared/util/validators';
+import Button from '../../shared/components/FormElements/Button';
+import './NewPlace.css';
 
 const formReducer = (state, action) => {
   switch(action.type) {
@@ -96,6 +97,9 @@ function NewPlace() {
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Please enter a valid description (at least 5 characters)." 
         onInput={inputHandler} />
+
+      {/* button is disabled when form is invalid */}
+      <Button type="submit" disabled={!formState.isValid}>ADD PLACE</Button>
 
     </form>
     
