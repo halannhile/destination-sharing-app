@@ -77,8 +77,13 @@ function NewPlace() {
       isValid: isValid});
     }, []);
 
+  const placeSubmitHandler = event => {
+    event.preventDefault();
+    console.log(formState.inputs); // will later send this to the backend
+  }
+
   return (
-    <form className="place-form">
+    <form className="place-form" onSubmit={placeSubmitHandler}>
 
       {/* if don't specify element="input", Input.js will render <textarea/> instead of <input/> */}
       <Input 
@@ -96,6 +101,15 @@ function NewPlace() {
         label="Description"
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Please enter a valid description (at least 5 characters)." 
+        onInput={inputHandler} />
+
+      <Input 
+        id="address"
+        element="input" 
+        label="Address"
+        // we'll later check if the address exists through the backend
+        validators={[VALIDATOR_REQUIRE()]}
+        errorText="Please enter a valid address." 
         onInput={inputHandler} />
 
       {/* button is disabled when form is invalid */}
