@@ -23,6 +23,7 @@
     border: 1px solid #ccc;
     background: #f8f8f8;
     padding: 0.35rem 0.25rem;
+    font-size: large;
   }
   
   .form-control input:focus,
