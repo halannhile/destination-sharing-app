@@ -40,31 +40,24 @@ const formReducer = (state, action) => {
     }
   };
 
-export const useForm = () => {
+export const useForm = (initialInputs, initialFormValidity) => {
+    
     const [formState, dispatch] = useReducer(formReducer, {
-
         // initial state of inputs, which contain title and description
-        inputs: {
-    
-          // initial state of title
-          title: {
-            value: '',
-            isValid: false
-          },
-    
-          // initial state of description
-          description: {
-            value: '',
-            isValid: false
-          },
-    
-          address: {
-            value: '',
-            isValid: false
-          }
-        },
-    
+        inputs: initialInputs,
         // initial overall state of form
-        isValid: false
+        isValid: initialFormValidity
       });
+
+    const inputHandler = useCallback((id, value, isValid) => {
+      dispatch({
+        type: 'INPUT_CHANGE', 
+        inputId: id, 
+        value: value, 
+        isValid: isValid});
+      }, []);
+
+    // need to return things from the hook
+    // which will be used outside the hook by components that use this hook
+    return [formState, inputHandler]
 }

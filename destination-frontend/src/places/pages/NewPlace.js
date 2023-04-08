@@ -3,22 +3,33 @@ import React, { useCallback, useReducer } from 'react';
 import Input from '../../shared/components/FormElements/Input';
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../shared/util/validators';
 import Button from '../../shared/components/FormElements/Button';
+import { useForm } from '../../shared/hooks/form-hook';
 import './PlaceForm.css';
-
-
 
 
 function NewPlace() {
 
-  
-
-  const inputHandler = useCallback((id, value, isValid) => {
-    dispatch({
-      type: 'INPUT_CHANGE', 
-      inputId: id, 
-      value: value, 
-      isValid: isValid});
-    }, []);
+  // these info we get from the useForm custom hook we create
+  const [formState, inputHandler] = useForm(
+    {
+      // initial state of title
+      title: {
+        value: '',
+        isValid: false
+      },
+      // initial state of description
+      description: {
+        value: '',
+        isValid: false
+      },
+      address: {
+        value: '',
+        isValid: false
+      }
+    },
+    // initial form validity: 
+    false
+  );
 
   const placeSubmitHandler = event => {
     event.preventDefault();

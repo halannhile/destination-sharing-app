@@ -36,9 +36,9 @@ function Input(props) {
     // initialization: value to '' and isValid to false
     // output: initial state, and the dispatch function to change this state
     const [inputState, dispatch] = useReducer(inputReducer, {
-        value: props.value || '', 
+        value: props.initialValue || '', 
         isTouched: false,
-        isValid: props.valid || false})
+        isValid: props.initialValid || false})
 
     const { id, onInput }= props;
     const { value, isValid } = inputState;
