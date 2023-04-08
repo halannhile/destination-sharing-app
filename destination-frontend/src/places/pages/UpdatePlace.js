@@ -1,0 +1,85 @@
+import React from 'react'
+import { useParams } from 'react-router-dom'
+
+import Input from '../../shared/components/FormElements/Input';
+import Button from '../../shared/components/FormElements/Button';
+import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../../shared/util/validators';
+
+
+// array of places
+const DUMMY_PLACES = [
+    {
+        id: 'p2',
+        title: 'Empire State Building',
+        description: 'One of the most famous sky scrappers in the world',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg',
+        address: '20 W 34th St, New York, NY 10001',
+        // lat and long can be extracted from google maps link: https://www.google.com/maps/d/u/0/viewer?mid=1qqg24F8Al_Uq2Bieu9cDHur_Cas&hl=en_US&ll=40.74849200000003%2C-73.985699&z=17
+        // or can also right click on the point on Google Maps
+        location: {
+            lat: 40.7484405,
+            lng: -73.9878584
+          },
+          creator: 'u2'
+    },
+    {
+        id: 'p1',
+        title: 'Sydney Opera House',
+        description: 'An icon of Sydney, Australia. The Sydney Opera House is one of the most distinctive architecture of the 20th century.',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Sydney_Australia._%2821339175489%29.jpg',
+        address: 'Bennelong Point, Sydney NSW 2000, Australia',
+        location: {
+            lat: -33.85662900846622, 
+            lng: 151.21531387971248
+        },
+        creator: 'u1'
+      }
+]
+
+function UpdatePlace() {
+    const placeId = useParams().placeId;
+
+    const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
+
+    if (!identifiedPlace) {
+        return <div className="center">
+            <h2>Could not find place!</h2>
+        </div>
+    }
+    
+    return (
+        // if place is found, load form with prefilled info of that place
+        <form className="place-form">
+
+            <Input
+                id="title"
+                element="input"
+                type="text"
+                label="Title"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter a valid title."
+                onInput={() => {}}
+                value={identifiedPlace.title}
+                valid={true}
+            />
+
+            <Input
+                id="description"
+                element="textarea"
+                label="Description"
+                validators={[VALIDATOR_MINLENGTH(5)]}
+                errorText="Please enter a valid description (min. 5 characters)"
+                onInput={() => {}}
+                value={identifiedPlace.description}
+                valid={true}
+            />
+
+            <Button type="submit" disabled={true}>
+                UPDATE PLACE
+            </Button>
+
+        </form>
+    )
+}
+
+export default UpdatePlace
