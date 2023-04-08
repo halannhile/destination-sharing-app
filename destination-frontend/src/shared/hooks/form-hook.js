@@ -39,7 +39,32 @@ const formReducer = (state, action) => {
         return state;
     }
   };
-  
-export const useForm = () => {
 
+export const useForm = () => {
+    const [formState, dispatch] = useReducer(formReducer, {
+
+        // initial state of inputs, which contain title and description
+        inputs: {
+    
+          // initial state of title
+          title: {
+            value: '',
+            isValid: false
+          },
+    
+          // initial state of description
+          description: {
+            value: '',
+            isValid: false
+          },
+    
+          address: {
+            value: '',
+            isValid: false
+          }
+        },
+    
+        // initial overall state of form
+        isValid: false
+      });
 }

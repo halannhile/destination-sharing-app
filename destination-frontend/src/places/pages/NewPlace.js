@@ -10,32 +10,7 @@ import './PlaceForm.css';
 
 function NewPlace() {
 
-  const [formState, dispatch] = useReducer(formReducer, {
-
-    // initial state of inputs, which contain title and description
-    inputs: {
-
-      // initial state of title
-      title: {
-        value: '',
-        isValid: false
-      },
-
-      // initial state of description
-      description: {
-        value: '',
-        isValid: false
-      },
-
-      address: {
-        value: '',
-        isValid: false
-      }
-    },
-
-    // initial overall state of form
-    isValid: false
-  });
+  
 
   const inputHandler = useCallback((id, value, isValid) => {
     dispatch({
