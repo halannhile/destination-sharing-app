@@ -66,16 +66,18 @@ function UpdatePlace() {
     // reinitialize form's fields with info from identifiedPlace
     useEffect(() => {
         
-        setFormData({
-            title: {
-                value: identifiedPlace.title, 
-                isValid: true
-            },
-            description: {
-                value: identifiedPlace.description,
-                isValid: true
-            }
-        }, true);
+        if (identifiedPlace) {
+            setFormData({
+                title: {
+                    value: identifiedPlace.title, 
+                    isValid: true
+                },
+                description: {
+                    value: identifiedPlace.description,
+                    isValid: true
+                }
+            }, true);
+        }
 
         setIsloading(false);
 
