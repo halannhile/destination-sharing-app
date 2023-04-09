@@ -17,6 +17,19 @@ function PlaceItem(props) {
     const closeMapHandler = () => setShowMap(false);
 
 
+    // modal to show DELETE warning message: 
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+    const showDeleteWarningHandler= () => setShowConfirmModal(true);
+
+    const cancelDeleteHandler = () => setShowConfirmModal(false);
+
+    const confirmDeleteHandler = () => {
+        // closing the warning dialogue box when use's confirmed delete
+        setShowConfirmModal(false);
+        console.log('DELETING...');
+    }
+
   return (
     <React.Fragment>
 
@@ -38,12 +51,14 @@ function PlaceItem(props) {
 
     {/* modal for displaying DELETE warning message  */}
     <Modal 
+        show={showConfirmModal}
+        onCancel={cancelDeleteHandler}
         header="Are you sure?" 
         footerClass="place-item__modal-actions" 
         footer={
             <React.Fragment>
-                <Button inverse>CANCEL</Button>
-                <Button danger>DELETE</Button>
+                <Button inverse onClick={cancelDeleteHandler}>CANCEL</Button>
+                <Button danger onClick={confirmDeleteHandler}>DELETE</Button>
             </React.Fragment>}>
 
         <p>Do you want to proceed to deleting this place? Please note that this cannot be undone.</p>
@@ -67,7 +82,7 @@ function PlaceItem(props) {
         <div className="place-item__actions">
             <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button>
             <Button to={`/places/${props.id}`}>EDIT</Button>
-            <Button danger>DELETE</Button>
+            <Button danger onClick={showDeleteWarningHandler}>DELETE</Button>
         </div>
         
         </Card>
