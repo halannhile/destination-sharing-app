@@ -34,8 +34,21 @@ function PlaceItem(props) {
                 center={props.coordinates}
                 zoom={16}/>
         </div>
+    </Modal>
 
-    </Modal>  
+    {/* modal for displaying DELETE warning message  */}
+    <Modal 
+        header="Are you sure?" 
+        footerClass="place-item__modal-actions" 
+        footer={
+            <React.Fragment>
+                <Button inverse>CANCEL</Button>
+                <Button danger>DELETE</Button>
+            </React.Fragment>}>
+
+        <p>Do you want to proceed to deleting this place? Please note that this cannot be undone.</p>
+   
+    </Modal>
 
     <li className="place-item">
 
