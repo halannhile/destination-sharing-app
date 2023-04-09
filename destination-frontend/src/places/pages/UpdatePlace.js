@@ -5,6 +5,7 @@ import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../../shared/util/validators';
 import { useForm } from '../../shared/hooks/form-hook';
+import './UpdatePlace.css'
 import './PlaceForm.css'
 
 
@@ -91,7 +92,7 @@ function UpdatePlace() {
     }
 
     if (!identifiedPlace) {
-        return <div className="center">
+        return <div className="update-place__place-not-found center" >
             <h2>Could not find place!</h2>
         </div>
     }
