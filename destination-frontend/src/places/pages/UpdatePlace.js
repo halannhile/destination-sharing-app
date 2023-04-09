@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import Input from '../../shared/components/FormElements/Input';
@@ -39,23 +39,49 @@ const DUMMY_PLACES = [
 ]
 
 function UpdatePlace() {
-    
+
+    // page is loading when identifiedPlace has not been found yet
+    const [isLoading, setIsloading] = useState(true)
+
     const placeId = useParams().placeId;
 
-    const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
 
-    const [formState, inputHandler] = useForm({
-
-        // initialize inputs of the form and its validity
+    // first, initialize forms with '' for title and description, and isValid to false
+    const [formState, inputHandler, setFormData] = useForm({
         title: {
-            value: identifiedPlace.title, 
-            isValid: true
+            value: '', 
+            isValid: false
         },
         description: {
-            value: identifiedPlace.description,
-            isValid: true
+            value: '',
+            isValid: false
         }
-    }, true)
+
+        // overall form validity
+    }, false)
+
+    // filter out the place we want to update from DUMMY_PLACES array
+    const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
+
+    // reinitialize form's fields with info from identifiedPlace
+    useEffect(() => {
+        
+        setFormData({
+            title: {
+                value: identifiedPlace.title, 
+                isValid: true
+            },
+            description: {
+                value: identifiedPlace.description,
+                isValid: true
+            }
+        }, true);
+
+        setIsloading(false);
+
+        // because identifiedPlace doesn't change whenever UpdatePlace reruns, it won't trigger useEffect again
+        // seFormData won't change also because in form-hook, it's wrapped in useCallback
+    }, [setFormData, identifiedPlace])
 
     const placeUpdateSubmitHandler = event => {
         event.preventDefault();
@@ -65,6 +91,12 @@ function UpdatePlace() {
     if (!identifiedPlace) {
         return <div className="center">
             <h2>Could not find place!</h2>
+        </div>
+    }
+
+    if (isLoading) {
+        return <div className="center">
+            <h2>Loading...</h2>
         </div>
     }
     
