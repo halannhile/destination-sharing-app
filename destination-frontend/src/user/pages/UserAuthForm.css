@@ -8,4 +8,8 @@
     border-radius: 6px;
     background: white;
   }
-  
+
+.user-auth-form__header {
+    margin-bottom: 1rem;
+    color: #9370db
+}
