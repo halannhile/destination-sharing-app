@@ -7,7 +7,7 @@ import NewPlace from './places/pages/NewPlace';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import UserPlaces from './places/pages/UserPlaces';
 import UpdatePlace from './places/pages/UpdatePlace';
-import UserAuth from './user/pages/UserAuth';
+import Auth from './user/pages/Auth';
 
 function App() {
   return (
@@ -36,7 +36,7 @@ function App() {
         </Route>
 
         <Route path="/auth" exact>
-          <UserAuth/>
+          <Auth/>
         </Route>
 
         <Redirect to="/"/>

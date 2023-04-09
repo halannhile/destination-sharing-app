@@ -6,7 +6,7 @@ import Button from '../../shared/components/FormElements/Button';
 import { useForm } from '../../shared/hooks/form-hook';
 import './UserAuthForm.css';
 
-function UserAuth() {
+function Auth() {
 
     // these info we get from the useForm custom hook we create
     const [formState, inputHandler] = useForm(
@@ -60,4 +60,4 @@ function UserAuth() {
   )
 }
 
-export default UserAuth
+export default Auth
