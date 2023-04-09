@@ -4,6 +4,7 @@ import Input from '../../shared/components/FormElements/Input';
 import { VALIDATOR_MINLENGTH, VALIDATOR_EMAIL } from '../../shared/util/validators';
 import Button from '../../shared/components/FormElements/Button';
 import { useForm } from '../../shared/hooks/form-hook';
+import './Auth.css'
 import './UserAuthForm.css';
 
 function Auth() {
