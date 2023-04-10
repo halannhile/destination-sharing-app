@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React, {useState} from 'react'
 import Input from '../../shared/components/FormElements/Input';
 import { VALIDATOR_MINLENGTH, VALIDATOR_EMAIL } from '../../shared/util/validators';
 import Button from '../../shared/components/FormElements/Button';
@@ -9,6 +8,9 @@ import { useForm } from '../../shared/hooks/form-hook';
 import './UserAuthForm.css'
 
 function Auth() {
+
+  // login state: 
+  const [isLoginMode, setIsLoginMode] = useState(true);
 
  // these info we get from the useForm custom hook we create
  const [formState, inputHandler] = useForm(
@@ -28,6 +30,10 @@ function Auth() {
   false
 );
 
+const switchModeHandler = () => {
+  setIsLoginMode(prevMode => !prevMode);
+}
+
 const authSubmitHandler = event => {
   event.preventDefault();
   console.log(formState.inputs); // will later send this to the backend
@@ -36,6 +42,9 @@ const authSubmitHandler = event => {
 return (
 <Card className="user-auth-form__card">
 <h2 className="user-auth-form__header center">LOG IN TO YOUR ACCOUNT</h2>
+
+<hr/>
+
 <form onSubmit={authSubmitHandler}>
 
   {/* if don't specify element="input", Input.js will render <textarea/> instead of <input/> */}
@@ -58,8 +67,16 @@ return (
     onInput={inputHandler} />
 
   {/* button is disabled when form is invalid */}
-  <Button type="submit" disabled={!formState.isValid}>LOG IN</Button>
+  <Button type="submit" disabled={!formState.isValid}>
+    {isLoginMode ? 'LOG IN' : 'SIGN UP'}
+  </Button>
+
 </form>
+
+<Button inverse onClick={switchModeHandler}>
+  SWITCH TO {isLoginMode ? 'SIGN UP' : 'LOG IN'}
+</Button>
+
 </Card>
 )
 }
