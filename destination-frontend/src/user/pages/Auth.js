@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import Input from '../../shared/components/FormElements/Input';
-import { VALIDATOR_MINLENGTH, VALIDATOR_EMAIL } from '../../shared/util/validators';
+import { VALIDATOR_MINLENGTH, VALIDATOR_EMAIL, VALIDATOR_REQUIRE } from '../../shared/util/validators';
 import Button from '../../shared/components/FormElements/Button';
 import Card from '../../shared/components/UIElements/Card';
 import { useForm } from '../../shared/hooks/form-hook';
@@ -47,6 +47,16 @@ return (
 
 <form onSubmit={authSubmitHandler}>
 
+  {!isLoginMode && 
+    <Input 
+      element="input" 
+      id="name" 
+      type="text" 
+      label="Your Name" 
+      validators={VALIDATOR_REQUIRE}
+      errorText="Name must not be blank"
+      onInput={inputHandler} />}
+
   {/* if don't specify element="input", Input.js will render <textarea/> instead of <input/> */}
   <Input 
     id="email"
@@ -72,7 +82,7 @@ return (
   </Button>
 
 </form>
-
+<br/>
 <Button inverse onClick={switchModeHandler}>
   SWITCH TO {isLoginMode ? 'SIGN UP' : 'LOG IN'}
 </Button>
