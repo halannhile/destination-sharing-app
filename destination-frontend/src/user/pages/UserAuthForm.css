@@ -1,14 +1,8 @@
-.user-auth-form {
-    list-style: none;
-    margin: 0 auto;
-    padding: 1rem;
+.user-auth-form__card {
     width: 90%;
-    max-width: 40rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    border-radius: 6px;
-    background: white;
-  }
-
+    max-width: 25rem;
+    margin: 7rem auto;
+}
 .user-auth-form__header {
     margin-bottom: 1rem;
     color: #9370db
