@@ -6,13 +6,13 @@ YourDestinations is an app that allows users to share their favorite destination
 
 ## Functionalities: 
 
-Full-stack MERN app with: 
+A full-stack MERN app with: 
 
 * Authentication 
 * CRUD functionalities
 * Google Maps API 
 
-## A work in progress...
+## Note: this is a work in progress...
 
 Progress so far:
 
