@@ -11,6 +11,12 @@ const formReducer = (state, action) => {
         let formIsValid = true;
         for (const inputId in state.inputs) {
   
+          // if any element in inputs is undefined (e.g. name field when in login mode)
+          // then skip to the next item in the inputs aray
+          // so that state.inputs[inputId].isValid won't throw an error
+          if (!state.inputs[inputId]) {
+            continue;
+          }
           // this logic makes sure we always take the previous value of formIsValid and combine it with the new validity value
           // false+false=false, false+true=false, true+true=true. so, if either Title or Description field is invalid, form is invalid
           if (inputId === action.inputId) {

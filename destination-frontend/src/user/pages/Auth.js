@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
+
 import Input from '../../shared/components/FormElements/Input';
-import { VALIDATOR_MINLENGTH, VALIDATOR_EMAIL, VALIDATOR_REQUIRE } from '../../shared/util/validators';
 import Button from '../../shared/components/FormElements/Button';
 import Card from '../../shared/components/UIElements/Card';
+import { VALIDATOR_MINLENGTH, VALIDATOR_EMAIL, VALIDATOR_REQUIRE } from '../../shared/util/validators';
 import { useForm } from '../../shared/hooks/form-hook';
 import './UserAuthForm.css'
 
@@ -12,7 +13,7 @@ function Auth() {
   const [isLoginMode, setIsLoginMode] = useState(true);
 
  // these info we get from the useForm custom hook we create
- const [formState, inputHandler] = useForm(
+ const [formState, inputHandler, setFormData] = useForm(
   {
   // initial state of email
   email: {
@@ -30,6 +31,26 @@ function Auth() {
 );
 
 const switchModeHandler = () => {
+  // we're in login mode: only need to check validity of email and pw
+  if (!isLoginMode) {
+    setFormData({
+      // copying all fields, overwriting name to undefined as login mode doesn't need
+      ...formState.inputs,
+      name: undefined
+    }, formState.inputs.email.isValid && formState.inputs.password.isValid)
+  } 
+
+  // we're not in login mode: overall form validity is false initially
+  else {
+    setFormData({
+      ...formState.inputs,
+      name: {
+        value: '',
+        isValid: false
+      }
+    }, false)
+  }
+
   setIsLoginMode(prevMode => !prevMode);
 }
 
@@ -46,15 +67,15 @@ return (
 
 <form onSubmit={authSubmitHandler}>
 
-  {!isLoginMode && 
+  {!isLoginMode && (
     <Input 
       element="input" 
       id="name" 
       type="text" 
       label="Your Name" 
-      validators={VALIDATOR_REQUIRE}
+      validators={[VALIDATOR_REQUIRE()]}
       errorText="Name must not be blank"
-      onInput={inputHandler} />}
+      onInput={inputHandler} /> )}
 
   {/* if don't specify element="input", Input.js will render <textarea/> instead of <input/> */}
   <Input 
