@@ -14,7 +14,7 @@ A full-stack MERN app with:
 
 ## Note: this is a work in progress...
 
-Progress so far:
+Progress so far: finished the front-end, preparing for linking with backend and database
 
 ### Web view: 
 
