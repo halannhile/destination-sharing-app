@@ -27,7 +27,7 @@ function App() {
 
   if (isLoggedIn) {
     routes = (
-      <React.Fragment>
+      <Switch>
         
       <Route path="/" exact>
           <Users/>
@@ -47,11 +47,11 @@ function App() {
 
       <Redirect to="/" />
 
-      </React.Fragment>
+      </Switch>
     );
   } else {
     routes = (
-      <React.Fragment>
+      <Switch>
 
       <Route path="/" exact>
           <Users/>
@@ -68,20 +68,21 @@ function App() {
 
       <Redirect to="/auth" />
 
-      </React.Fragment>
+      </Switch>
     );
   }
 
   return (
-    <AuthContext.Provider value={{isLoggedIn: isLoggedIn, login: login, logout: logout}}>
+    <AuthContext.Provider value={{
+      isLoggedIn: isLoggedIn, 
+      login: login, 
+      logout: logout}}>
     <Router>
 
       <MainNavigation/>
 
       <main>
-        <Switch>
-          {routes}
-        </Switch>
+        {routes}
       </main>
 
     </Router>
