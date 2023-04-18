@@ -22,6 +22,29 @@ function App() {
     setIsLoggedIn(false)
   }, [])
 
+  let routes;
+
+  if (isLoggedIn) {
+    routes = ();
+  } else {
+    routes = (
+      <React.Fragment>
+      <Route path="/" exact>
+          <Users/>
+      </Route>
+
+      <Route path="/:userId/places" exact>
+        <UserPlaces/>
+      </Route>
+
+      <Route path="/auth" exact>
+          <Auth/>
+      </Route>
+
+      </React.Fragment>
+    );
+  }
+
   return (
     <AuthContext.Provider value={{isLoggedIn: isLoggedIn, login: login, logout: logout}}>
     <Router>
