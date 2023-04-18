@@ -1,5 +1,6 @@
 import './App.css';
 
+import React from 'react';
 import { useState, useCallback } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
@@ -25,10 +26,9 @@ function App() {
   let routes;
 
   if (isLoggedIn) {
-    routes = ();
-  } else {
     routes = (
       <React.Fragment>
+        
       <Route path="/" exact>
           <Users/>
       </Route>
@@ -37,9 +37,36 @@ function App() {
         <UserPlaces/>
       </Route>
 
+      <Route path="/places/new" exact>
+        <NewPlace/>
+      </Route>
+
+      <Route path="/places/:placeId" exact>
+        <UpdatePlace/>
+      </Route>
+
+      <Redirect to="/" />
+
+      </React.Fragment>
+    );
+  } else {
+    routes = (
+      <React.Fragment>
+
+      <Route path="/" exact>
+          <Users/>
+      </Route>
+
+      {/* this route as a dynamic path, the :userId is called a dynamic segment */}
+      <Route path="/:userId/places" exact>
+        <UserPlaces/>
+      </Route>
+
       <Route path="/auth" exact>
           <Auth/>
       </Route>
+
+      <Redirect to="/auth" />
 
       </React.Fragment>
     );
@@ -53,30 +80,7 @@ function App() {
 
       <main>
         <Switch>
-        
-        <Route path="/" exact>
-          <Users/>
-        </Route>
-
-        {/* this route as a dynamic path, the :userId is called a dynamic segment */}
-        <Route path="/:userId/places" exact>
-          <UserPlaces/>
-        </Route>
-
-        <Route path="/places/new" exact>
-          <NewPlace/>
-        </Route>
-
-        <Route path="/places/:placeId" exact>
-          <UpdatePlace/>
-        </Route>
-
-        <Route path="/auth" exact>
-          <Auth/>
-        </Route>
-
-        <Redirect to="/"/>
-
+          {routes}
         </Switch>
       </main>
 
