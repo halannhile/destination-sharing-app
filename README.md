@@ -2,7 +2,7 @@
 
 ## Description: 
 
-YourDestinations is an app that allows users to share their favorite destinations, and view other users' shared places.
+YourDestinations is an app that allows users to share their favorite destinations and view other users' shared places.
 
 ## Functionalities: 
 
