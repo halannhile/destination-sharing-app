@@ -8,6 +8,7 @@ import './NavLinks.css'
 function NavLinks(props) {
     // auth holds isLoggedIn property, login method and logout method
     const auth = useContext(AuthContext)
+    
     return (
         <ul className="nav-links">
 
