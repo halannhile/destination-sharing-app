@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 
     if (req.body) {
         // return here so we won't render the form if req.body is available
-        return res.send('<h1>' + req.body.name + '</h1>')
+        return res.send('<h1>User: ' + req.body.name + '</h1>')
     }
 
     res.send('<form method="POST"><input type="text" name="username"><button>CREATE USER</button></form>')
