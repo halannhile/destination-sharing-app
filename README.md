@@ -2,7 +2,7 @@
 
 ## Project description: 
 
-YourDestinations is an app that allows users to share photos of and information about their favorite destinations, and view share places of other users.
+YourDestinations is an app that allows users to share photos of and information about their favorite destinations, and view other users' shared places.
 
 ## Functionalities: 
 
