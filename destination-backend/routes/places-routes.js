@@ -8,3 +8,6 @@ router.get('/', (req, res, next) => {
     // send back a response with some json
     res.json({message: 'it works!'});
 });
+
+// export the router here to ue in app.js
+module.exports = router;
