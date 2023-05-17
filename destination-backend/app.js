@@ -6,7 +6,8 @@ const placesRoutes = require('./routes/places-routes');
 
 const app = express();
 
-app.use(placesRoutes);
+// will only forward requests to the placesRoutes middleware (in places-routes.js) if their path starts with /api/places
+app.use('/api/places', placesRoutes);
 
 app.listen(5000)
 
