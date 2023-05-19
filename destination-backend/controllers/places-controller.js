@@ -47,7 +47,25 @@ const getPlaceByUserId = (req, res, next) => {
     res.json({ place });
 }
 
+const createPlace = (req, res, next) => {
+    // object destructuring: 
+    const { title, description, coordinates, address, creator } = req.body;
+    const createdPlace = {
+        title, // shortcut for title: title
+        description, 
+        location: coordinates,
+        address,
+        creator
+    };
+
+    // add to dummy_places: 
+    DUMMY_PLACES.push(createPlace) // or unshift(createdPlace) if we want createdPlace to be first element
+
+    // send back a response: 201 if successfully created something new
+    res.status(201).json({place: createPlace});
+};
+
 exports.getPlaceById = getPlaceById;
 exports.getPlaceByUserId = getPlaceByUserId;
-
+exports.createPlace = createPlace;
 
