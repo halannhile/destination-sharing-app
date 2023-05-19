@@ -1,22 +1,7 @@
 const express = require('express');
 
-const HttpError = require('../models/http-error');
-
 const router = express.Router();
 
-const DUMMY_PLACES = [
-    {
-        id: 'p1',
-        title: 'Sydney Opera House',
-        description: 'An architectural icon of Sydney',
-        location: {
-            lat: -33.85662900846622, 
-            lng: 151.21531387971248
-        },
-        address: 'Bennelong Point, Sydney NSW 2000, Australia',
-        creator: 'u1'
-    }
-];
 
 // register a route for api/places/placeId: 
 router.get('/:pid', (req, res, next) => {
@@ -35,19 +20,7 @@ router.get('/:pid', (req, res, next) => {
 });
 
 // register a route for /users/userId:
-router.get('/user/:uid', (req, res, next) => {
-    const userId = req.params.uid;
-
-    const place = DUMMY_PLACES.find(p => {
-        return p.creator === userId;
-    });
-
-    if (!place) {
-            return next(new Error('Could not find a place for the provided user id.', 404));
-        }
-
-    res.json({ place });
-});
+router.get('/user/:uid', );
 
 // export the router here to ue in app.js
 module.exports = router;
