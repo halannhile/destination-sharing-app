@@ -12,7 +12,7 @@ A full-stack MERN app with the following features:
 * CRUD functionalities
 * Google Maps API 
 
-## Note: this is a work in progress...
+## Note: this is a work in progress
 
 Progress so far: finished the front-end, preparing for linking with the backend and database
 
