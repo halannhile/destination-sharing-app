@@ -1,13 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-// import this route to use as a middleware
 const placesRoutes = require('./routes/places-routes');
 
 const app = express();
 
-// will only forward requests to the placesRoutes middleware (in places-routes.js) if their path starts with /api/places
-app.use('/api/places', placesRoutes);
+app.use(bodyParser.json());
 
-app.listen(5000)
+app.use('/api/places', placesRoutes); // => /api/places...
 
+app.use((error, req, res, next) => {
+  if (res.headerSent) {
+    return next(error);
+  }
+  res.status(error.code || 500)
+  res.json({message: error.message || 'An unknown error occurred!'});
+});
+
+app.listen(5000);
