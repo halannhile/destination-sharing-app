@@ -1,17 +1,24 @@
 const express = require('express');
 
-const placesControllers = require('../controllers/places-controllers');
+const placesControllers = require('../controllers/places-controllers')
 
 const router = express.Router();
 
+
+// register a route for api/places/placeId: 
 router.get('/:pid', placesControllers.getPlaceById);
 
-router.get('/user/:uid', placesControllers.getPlaceByUserId);
+// register a route for /users/userId:
+router.get('/user/:uid', placesControllers.getPlacesByUserId);
 
-router.post('/', placesControllers.createPlace);
+// POST request: this will reach /api/places-routes 
+router.post('/', placesControllers.createPlace)
 
-router.patch('/:pid', placesControllers.updatePlace);
+// PATCH request: update place by id: 
+router.patch('/:pid', placesControllers.updatePlace)
 
-router.delete('/:pid', placesControllers.deletePlace);
+// DELETE request: delete place by id: 
+router.delete('/:pid', placesControllers.deletePlace)
 
+// export the router here to ue in app.js
 module.exports = router;
