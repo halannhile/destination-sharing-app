@@ -2,28 +2,18 @@ const { v4: uuidv4 } = require('uuid');
 
 const HttpError = require('../models/http-error');
 
-let DUMMY_PLACES = [
+let DUMMY_USERS = [
     {
-        id: 'p1',
-        title: 'Sydney Opera House',
-        description: 'An architectural icon of Sydney',
-        location: {
-            lat: -33.85662900846622, 
-            lng: 151.21531387971248
-        },
-        address: 'Bennelong Point, Sydney NSW 2000, Australia',
-        creator: 'u1'
+        id: 'u1',
+        name: 'Nhi Le',
+        email: 'nhile@gmail.com',
+        password: '123'
     },
     {
-        id: 'p2',
-        title: 'Sydney Opera House 2',
-        description: 'An architectural icon of Sydney',
-        location: {
-            lat: -33.85662900846622, 
-            lng: 151.21531387971248
-        },
-        address: 'Bennelong Point, Sydney NSW 2000, Australia',
-        creator: 'u1'
+        id: 'u2',
+        name: 'Duc Le',
+        email: 'ducle@gmail.com',
+        password: '123456'
     }
 ];
 
@@ -32,15 +22,29 @@ let DUMMY_PLACES = [
 // 2. const getPlaceById = function() { ... }
 
 const getUsers = (req, res, next) => {
-    let creators = DUMMY_PLACES.map(user => user.creator);
+    res.json({ users: DUMMY_USERS })
+};
 
-    // return 404 error if place not found
-    if (!creators) {
-        throw new HttpError('No users found.', 404);
-    }
 
-    // send back a response with some json
-    res.json({ creators }); // equivalent to { place: place }
+const signup = (req, res, next) => {
+    const { name, email, password } = req.body;
+
+    const createdUser = {
+        id: uuidv4(),
+        name, // same as name: name
+        email, 
+        password
+    };
+
+    DUMMY_USERS.push(createdUser);
+
+    res.status(201).json({ user: createdUser })
+}
+
+const login = (req, res, next) => {
+
 }
 
 exports.getUsers = getUsers;
+exports.signup = signup;
+exports.login = login;
