@@ -68,7 +68,7 @@ const createPlace = (req, res, next) => {
     console.log(errors);
     if (!errors.isEmpty()) {
         throw new HttpError('Invalid inputs, please check your data.', 422);
-    }
+    };
     
     // object destructuring: 
     const { title, description, coordinates, address, creator } = req.body;
@@ -90,6 +90,12 @@ const createPlace = (req, res, next) => {
 };
 
 const updatePlace = (req, res, next) => {
+    // checks on req's body: 
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        throw new HttpError('Invalid inputs, please check your data.', 422);
+    };
+
     const { title, description } = req.body;
     const placeId = req.params.pid;
 

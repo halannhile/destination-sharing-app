@@ -13,8 +13,7 @@ router.get('/:pid', placesControllers.getPlaceById);
 router.get('/users/:uid', placesControllers.getPlacesByUserId);
 
 // POST request: this will reach /api/places 
-router.post(
-    '/', 
+router.post('/', 
     [
         check('title')
         .not()
@@ -30,7 +29,16 @@ router.post(
     placesControllers.createPlace)
 
 // PATCH request: update place by id: 
-router.patch('/:pid', placesControllers.updatePlace)
+router.patch('/:pid', 
+    [
+        check('title')
+        .not()
+        .isEmpty(),
+
+        check ('description')
+        .isLength({ min: 5 })
+    ],
+    placesControllers.updatePlace)
 
 // DELETE request: delete place by id: 
 router.delete('/:pid', placesControllers.deletePlace)
