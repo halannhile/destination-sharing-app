@@ -1,4 +1,5 @@
-const express = require('express');
+const express = require('express'); // can also do const { Router } = require('express') to only import Router
+const { check } = require('express-validator')
 
 const placesControllers = require('../controllers/places-controllers')
 
@@ -11,8 +12,22 @@ router.get('/:pid', placesControllers.getPlaceById);
 // register a route for /users/userId:
 router.get('/users/:uid', placesControllers.getPlacesByUserId);
 
-// POST request: this will reach /api/places-routes 
-router.post('/', placesControllers.createPlace)
+// POST request: this will reach /api/places 
+router.post(
+    '/', 
+    [
+        check('title')
+        .not()
+        .isEmpty(),
+
+        check ('description')
+        .isLength({min: 5}),
+
+        check('address')
+        .not()
+        .isEmpty()
+    ], 
+    placesControllers.createPlace)
 
 // PATCH request: update place by id: 
 router.patch('/:pid', placesControllers.updatePlace)
