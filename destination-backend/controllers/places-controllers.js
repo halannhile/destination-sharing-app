@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 
 const HttpError = require('../models/http-error');
 
@@ -32,7 +32,7 @@ const getPlaceById = (req, res, next) => {
     }
 
     // send back a response with some json
-    res.json({place: place}); // or can also shortern it to {place}
+    res.json({ place }); // equivalent to { place: place }
 }
 
 const getPlaceByUserId = (req, res, next) => {
@@ -43,7 +43,8 @@ const getPlaceByUserId = (req, res, next) => {
     });
 
     if (!place) {
-            return next(new HttpError('Could not find a place for the provided user id.', 404));
+            return next(
+                new HttpError('Could not find a place for the provided user id.', 404));
         }
 
     res.json({ place });
@@ -53,7 +54,7 @@ const createPlace = (req, res, next) => {
     // object destructuring: 
     const { title, description, coordinates, address, creator } = req.body;
     const createdPlace = {
-        id: uuid(),
+        id: uuidv4(),
         title, // shortcut for title: title
         description, 
         location: coordinates,
@@ -62,10 +63,10 @@ const createPlace = (req, res, next) => {
     };
 
     // add to dummy_places: 
-    DUMMY_PLACES.push(createPlace) // or unshift(createdPlace) if we want createdPlace to be first element
+    DUMMY_PLACES.push(createdPlace) // or unshift(createdPlace) if we want createdPlace to be first element
 
     // send back a response: 201 if successfully created something new
-    res.status(201).json({place: createPlace});
+    res.status(201).json({place: createdPlace});
 };
 
 const updatePlace = (req, res, next) => {

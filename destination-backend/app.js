@@ -16,10 +16,10 @@ app.use(bodyParser.json());
 // will only forward requests to the placesRoutes middleware (in places-routes.js) if their path starts with /api/places
 app.use('/api/places', placesRoutes);
 
-app.use((req, res, next) => {
-    const error = new HttpError('Could not find this route', 404);
-    throw error
-});
+// app.use((req, res, next) => {
+//     const error = new HttpError('Could not find this route', 404);
+//     throw error
+// });
 
 // middleware for error handling
 // will only execute on request with an error
