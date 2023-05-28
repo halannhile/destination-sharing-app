@@ -114,6 +114,11 @@ const deletePlace = (req, res, next) => {
     // getting id of place we want to delete
     const placeId = req.params.pid;
 
+    // check if place exists before delete: 
+    if (!DUMMY_PLACES.find(p => p.id === placeId)) {
+        throw new HttpError('Could not find a place for that id to delete.', 404);
+    }
+
     // replace DUMMY_PLACES array with only places that are not to be deleted
     DUMMY_PLACES = DUMMY_PLACES.filter(p => p.id !== placeId);
     
