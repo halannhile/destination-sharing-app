@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 // import this route to use as a middleware
 const placesRoutes = require('./routes/places-routes');
+const usersRoutes = require('./routes/users-routes');
 const HttpError = require('./models/http-error');
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 
 // will only forward requests to the placesRoutes middleware (in places-routes.js) if their path starts with /api/places
 app.use('/api/places', placesRoutes);
+app.use('/api/users', usersRoutes);
 
 // app.use((req, res, next) => {
 //     const error = new HttpError('Could not find this route', 404);

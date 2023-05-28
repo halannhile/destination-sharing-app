@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/:pid', placesControllers.getPlaceById);
 
 // register a route for /users/userId:
-router.get('/user/:uid', placesControllers.getPlacesByUserId);
+router.get('/users/:uid', placesControllers.getPlacesByUserId);
 
 // POST request: this will reach /api/places-routes 
 router.post('/', placesControllers.createPlace)
