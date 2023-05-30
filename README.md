@@ -1,4 +1,4 @@
-# YourDestinations: a destination sharing app
+# YourDestinations - a destination sharing app
 
 ## Project description: 
 
