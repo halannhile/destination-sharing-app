@@ -1,6 +1,6 @@
 # YourDestinations - a destination sharing app
 
-## Project description: 
+## Project desc: 
 
 YourDestinations is an app that allows users to share photos of and information about their favorite destinations, and view other users' shared places.
 
