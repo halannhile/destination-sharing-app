@@ -63,6 +63,9 @@ const getPlacesByUserId = (req, res, next) => {
     res.json({ places });
 }
 
+
+
+
 const createPlace = async (req, res, next) => {
     // checks on req's body: 
     const errors = validationResult(req);
