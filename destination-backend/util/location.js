@@ -4,6 +4,8 @@ const HttpError = require('../models/http-error');
 
 const API_KEY = 'AIzaSyDwCwZycUUZkvhstBcXZi6rIQNVwbxYhIg';
 
+
+
 async function getCoordsForAddress(address) {
   // return {
   //   lat: 40.7484474,
