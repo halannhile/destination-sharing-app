@@ -4,6 +4,9 @@ const { validationResult } = require('express-validator');
 const HttpError = require('../models/http-error');
 const getCoordsForAddress = require('../util/location');
 
+// import the Place constructor from the place model
+const Place = require('../models/place')
+
 let DUMMY_PLACES = [
     {
         id: 'p1',
@@ -84,17 +87,29 @@ const createPlace = async (req, res, next) => {
         return next(error);
     }
 
-    const createdPlace = {
-        id: uuidv4(),
-        title, // shortcut for title: title
+    // using the Place constructor from place model
+    const createdPlace =  new Place({
+        title, 
         description, 
-        location: coordinates,
         address,
+        location: coordinates,
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Empire_State_Building_%28aerial_view%29.jpg/400px-Empire_State_Building_%28aerial_view%29.jpg',
         creator
-    };
-
-    // add to dummy_places: 
-    DUMMY_PLACES.push(createdPlace) // or unshift(createdPlace) if we want createdPlace to be first element
+    });
+    
+    // save(): a Mongoose method that helps store the new document in MongoDB and create a unique id
+    // save() is an asynchronous task (i.e. returns a promise)
+    try {
+        await createdPlace.save();
+    } catch (err) {
+        const error = new HttpError(
+            'Creating place failed, please try again.',
+            500 // error code
+        );
+        return next(error); // to stop code execution in case of error
+    }
+    
+    
 
     // send back a response: 201 if successfully created something new
     res.status(201).json({place: createdPlace});
