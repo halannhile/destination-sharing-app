@@ -36,20 +36,40 @@ let DUMMY_PLACES = [
 // 1. function getPlaceById() { ... }
 // 2. const getPlaceById = function() { ... }
 
-const getPlaceById = (req, res, next) => {
+const getPlaceById = async (req, res, next) => {
+
+    // extract the placeId from request
     const placeId = req.params.pid; // { pid: 'p1' }
-    const place = DUMMY_PLACES.find(p => {
-        return p.id === placeId;
-    });
+    
+    // define place here so we can use in if block later
+    let place;
+
+    try {
+        // find() is a static method & should be used directly on the Place constructor
+        // exec() turns this into a promise because findById doesn't return a real promise
+        // findById returns a 'fake' promise where then-catch-await can still be used
+        place = await Place.findById(placeId); //.exec();
+    } catch (err) {
+        const error = new HttpError(
+            'Something went wrong, could not find place.', 500
+        );
+
+        // stop code execution when error is caught
+        return next(error);
+    }
 
     // return 404 error if place not found
     if (!place) {
-        throw new HttpError('Could not find a place for the provided id.', 404);
+        const error = new HttpError(
+            'Could not find a place for the provided id.', 404
+        );
+        return next(error)
     }
 
-    // send back a response with some json
-    res.json({ place }); // equivalent to { place: place }
-}
+    // it'd be easier if we return a javascript object
+    // also change from '_id' to 'id' for clean code and easy future reference
+    res.json({ place: place.toObject({ getters: true }) })
+    }
 
 const getPlacesByUserId = (req, res, next) => {
     const userId = req.params.uid;
@@ -108,7 +128,6 @@ const createPlace = async (req, res, next) => {
         );
         return next(error); // to stop code execution in case of error
     }
-    
     
 
     // send back a response: 201 if successfully created something new
