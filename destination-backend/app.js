@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose')
 
 // import this route to use as a middleware
 const placesRoutes = require('./routes/places-routes');
@@ -35,5 +36,21 @@ app.use((error, req, res, next) => {
     res.json({message: error.message || 'An unknown error occured.'})
 })
 
-app.listen(5000)
+// step 1: establish connection to database
+// step 2: if connection successful, start backend server and run app
+// else throw error
+
+// note: connect returns a promise as connection is an asynchronous task
+// hence we can use then() and catch()
+mongoose
+    .connect('mongodb+srv://nhile:risRVJ7hAALPYhyh@cluster0.asy4kev.mongodb.net/places?retryWrites=true&w=majority')
+    .then(() => {
+        app.listen(5000)
+    })
+    .catch(error => {
+        console.log(err);
+    });
+
+
+
 
