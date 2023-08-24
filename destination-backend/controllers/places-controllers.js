@@ -5,7 +5,7 @@ const HttpError = require('../models/http-error');
 const getCoordsForAddress = require('../util/location');
 
 // import the Place constructor from the place model
-const Place = require('../models/place')
+const Place = require('../models/place');
 
 let DUMMY_PLACES = [
     {
