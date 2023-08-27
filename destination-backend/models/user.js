@@ -15,7 +15,8 @@ const userSchema = new Schema({
     
     // each user can have multiple places, which will be dynamic
     // we'll store the IDs allocated to a user here
-    places: { type: String, required: true }
+    // we're using [] bc each user can have multiple (i.e. an array of) places 
+    places: { type: mongoose.Types.ObjectId, required: true, ref: 'Place' }
 });
 
 // internal validation to make sure emails are unique (not done by mongoose)

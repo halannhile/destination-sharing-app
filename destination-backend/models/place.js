@@ -11,7 +11,9 @@ const placeSchema = new Schema({
         lat: { type: Number, required: true },
         lng: { type: Number, required: true }
     },
-    creator: { type: String, required: true }
+
+    // establish connection to the User model
+    creator: { type: mongoose.Types.ObjectId, required: true, ref: 'User' }
 });
 
 // naming convention: model 'Place', collection 'places'
