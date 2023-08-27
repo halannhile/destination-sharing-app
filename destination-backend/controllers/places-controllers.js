@@ -149,7 +149,9 @@ const updatePlace = async (req, res, next) => {
     // checks on req's body: 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError('Invalid inputs, please check your data.', 422);
+        return next(
+            new HttpError('Invalid inputs, please check your data.', 422)
+        );
     };
 
     // get info from req's body

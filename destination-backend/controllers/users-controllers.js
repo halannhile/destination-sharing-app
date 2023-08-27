@@ -3,6 +3,9 @@ const { validationResult } = require('express-validator')
 
 const HttpError = require('../models/http-error');
 
+// import User model
+const User = require('../models/user');
+
 let DUMMY_USERS = [
     {
         id: 'u1',
@@ -27,32 +30,63 @@ const getUsers = (req, res, next) => {
 };
 
 
-const signup = (req, res, next) => {
+const signup = async (req, res, next) => {
     // checks on req's body: 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError('Invalid inputs, please check your data.', 422);
+        return next(
+            new HttpError('Invalid inputs, please check your data.', 422)
+        );
     };
 
-    const { name, email, password } = req.body;
+    const { name, email, password, places } = req.body;
 
-    const hasUser = DUMMY_USERS.find(u => u.email === email);
-    
-    if (hasUser) {
-        // 422: invalid user's input
-        throw new HttpError('Could not create user, email already registered.', 422)
-    }
+    // check if user email exists already
+    // findOne() finds one document matching the criteria in the argument of our method
+    let existingUser;
+    try {
+        existingUser = await User.findOne({ email: email })
+    } catch (err) {
+        const error = new HttpError(
+            'There was a problem signing you up, please try again.',
+            500
+        );
+        return next(error); 
+    };
 
-    const createdUser = {
-        id: uuidv4(),
-        name, // same as name: name
+    // return error if user already exists in database
+    if (existingUser) {
+        const error = new HttpError(
+            // doing this presents the issue of exposing this info to other users
+            // but we'll stick with this for now for a better user experience
+            'User already exists, please login instead.',
+            422
+        );
+        return next(error);
+    };
+
+    // if user doesn't already exist, allow signup
+    // make sure it's consistent with the User schema
+    const createdUser = new User({
+        name, 
         email, 
-        password
+        image: 'https://live.staticflickr.com/7631/26849088292_36fc52ee90_b.jpg',
+        password,
+        places
+    });
+
+    // saving the newly created user
+    try {
+        await createdUser.save();
+    } catch (err) {
+        const error = new HttpError(
+            'There was a problem signing you up, please try again.',
+            500    
+        );
+        return next(Error);
     };
 
-    DUMMY_USERS.push(createdUser);
-
-    res.status(201).json({ user: createdUser })
+    res.status(201).json({ user: createdUser.toObject({ getters: true }) });
 };
 
 const login = (req, res, next) => {
