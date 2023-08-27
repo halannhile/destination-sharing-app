@@ -25,8 +25,20 @@ let DUMMY_USERS = [
 // 1. function getPlaceById() { ... }
 // 2. const getPlaceById = function() { ... }
 
-const getUsers = (req, res, next) => {
-    res.json({ users: DUMMY_USERS })
+// return only name and email, not password
+const getUsers = async (req, res, next) => {
+    let users;
+    try{
+        users = await User.find({}, '-password'); // can also do 'email name'
+    } catch (err) {
+        const error = new HttpError(
+            'Fetching users failed, please try again later.',
+            500
+        );
+        return next(error);
+    };
+    // need to use map() bc find() returns an array
+    res.json({users: users.map(user => user.toObject({ getters: true }))});    
 };
 
 
