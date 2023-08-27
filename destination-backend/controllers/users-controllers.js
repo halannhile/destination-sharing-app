@@ -89,16 +89,30 @@ const signup = async (req, res, next) => {
     res.status(201).json({ user: createdUser.toObject({ getters: true }) });
 };
 
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
     const { email, password } = req.body;
 
-    const identifiedUser = DUMMY_USERS.find(u => u.email === email);
-    
-    if (!identifiedUser || identifiedUser.password !== password) {
-        // 401: authentication failed
-        throw new HttpError('Could not identify user, the provided credentials seem to be wrong.', 401) 
-    }
-    
+    // custom email validator - same as before
+    let existingUser;
+    try {
+        existingUser = await User.findOne({ email: email })
+    } catch (err) {
+        const error = new HttpError(
+            'There was a problem loggin you in, please try again.',
+            500
+        );
+        return next(error); 
+    };
+
+    // check if email and password are correct
+    if (!existingUser || existingUser.password !== password) {
+        const error = new HttpError(
+            'Invalid email or password, could not log you in.',
+            401
+        );
+        return next(error);
+    };
+
     res.json({ message: 'Logged in' })
 }
 
