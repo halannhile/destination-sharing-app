@@ -238,7 +238,7 @@ const deletePlace = async (req, res, next) => {
 
     // find the place in database
     try {
-        place = await Place.findById(placeId);
+        place = await Place.findById(placeId).populate('creator');
     } catch (err) {
         const error = new HttpError(
             'Something went wrong, could not delete place.',
@@ -247,12 +247,31 @@ const deletePlace = async (req, res, next) => {
         return next(error);
     };
 
+    // check if a place with the provided placeId exists 
+    if (!place) {
+        const error = new HttpError(
+            'Could not find place for this id.',
+            404
+        );
+        return next(error);
+    };
+
     // deleting the place: 
     try {
-        await place.deleteOne();
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+
+        await place.deleteOne({ session: sess });
+        
+        // thanks to populate(), place.creator gives us full user object linked to that place 
+        // so we're actually pulling from and saving the User object here
+        place.creator.places.pull(place);
+        await place.creator.save({ session: sess });
+
+        await sess.commitTransaction();
     } catch (err) {
         const error = new HttpError(
-            'Something went wrong, could not delete place.',
+            'Deleting place failed, please try again.',
             500
         );
         return next(error);
