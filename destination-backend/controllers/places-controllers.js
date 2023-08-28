@@ -1,11 +1,15 @@
 const { v4: uuidv4 } = require('uuid');
 const { validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 const HttpError = require('../models/http-error');
 const getCoordsForAddress = require('../util/location');
 
 // import the Place constructor from the place model
 const Place = require('../models/place');
+
+// import the User model to add places to a user
+const User = require('../models/user');
 
 let DUMMY_PLACES = [
     {
@@ -128,17 +132,54 @@ const createPlace = async (req, res, next) => {
         creator
     });
     
+    // check if the userId provided exists already (only then a place can be created for user)
+    let user;
+    try {
+        user = await User.findById(creator)
+    } catch (err) {
+        const error = new HttpError(
+            'Creating place failed, please try again later',
+            500
+        );
+        return next(error);
+    }
+
+    // if userId doesn't exist 
+    if (!user) {
+        const error = new HttpError(
+            'Could not find user for provided id.',
+            404
+        );
+        return next(error);
+    };
+
+    console.log(user);
+
     // save(): a Mongoose method that helps store the new document in MongoDB and create a unique id
     // save() is an asynchronous task (i.e. returns a promise)
     try {
-        await createdPlace.save();
+        
+        // session starts when we want to create a new place
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        
+        // this will create unique ID for createdPlace
+        await createdPlace.save({ session: sess });
+
+        // add only the placeId to user
+        user.places.push(createdPlace);
+        await user.save({ session: sess });
+        
+        // only when all of the above succeed is the session completed and changes really saved in database
+        await sess.commitTransaction();
+
     } catch (err) {
         const error = new HttpError(
             'Creating place failed, please try again.',
             500 // error code
         );
         return next(error); // to stop code execution in case of error
-    }
+    };
     
 
     // send back a response: 201 if successfully created something new
